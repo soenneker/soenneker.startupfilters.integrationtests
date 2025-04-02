@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 namespace Soenneker.StartupFilters.IntegrationTests.Registrars;
 
 /// <summary>
-/// An abstract xUnit test class for end-to-end integration (involving WebApplicationFactory) tests
+/// A StartupFilter injecting middleware crucial to integration testing
 /// </summary>
 public static class IntegrationTestRegistrar
 {
