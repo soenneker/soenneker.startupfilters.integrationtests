@@ -12,7 +12,7 @@ public static class IntegrationTestRegistrar
     /// <summary>
     /// Adds <see cref="IntegrationTestsStartupFilter"/> as a singleton service. <para/>
     /// </summary>
-    public static IServiceCollection AddIntegrationTestAsSingleton(this IServiceCollection services)
+    public static IServiceCollection AddIntegrationTestsStartupFilterAsSingleton(this IServiceCollection services)
     {
         services.TryAddSingleton<IStartupFilter, IntegrationTestsStartupFilter>();
 
@@ -22,7 +22,7 @@ public static class IntegrationTestRegistrar
     /// <summary>
     /// Adds <see cref="IntegrationTestsStartupFilter"/> as a scoped service. <para/>
     /// </summary>
-    public static IServiceCollection AddIntegrationTestAsScoped(this IServiceCollection services)
+    public static IServiceCollection AddIntegrationTestsStartupFilterAsScoped(this IServiceCollection services)
     {
         services.TryAddScoped<IStartupFilter, IntegrationTestsStartupFilter>();
 
