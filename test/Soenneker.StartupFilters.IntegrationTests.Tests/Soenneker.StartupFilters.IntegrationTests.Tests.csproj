@@ -27,7 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Soenneker.StartupFilters.IntegrationTests.csproj" />
+        <ProjectReference Include="..\..\src\Soenneker.StartupFilters.IntegrationTests\Soenneker.StartupFilters.IntegrationTests.csproj" />
     </ItemGroup>
 
     <ItemGroup>
