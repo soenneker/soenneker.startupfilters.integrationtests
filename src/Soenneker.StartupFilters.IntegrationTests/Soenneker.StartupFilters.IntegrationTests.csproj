@@ -44,7 +44,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.3.10" />
+        <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.3.11" />
         <PackageReference Include="Soenneker.Middlewares.LocalIpAddress" Version="4.0.61" />
     </ItemGroup>
 </Project>
