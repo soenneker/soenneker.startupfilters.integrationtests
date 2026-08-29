@@ -9,10 +9,10 @@ namespace Soenneker.StartupFilters.IntegrationTests;
 public class IntegrationTestsStartupFilter : IIntegrationTestsStartupFilter
 {
     /// <summary>
-    /// Configures the specified options.
+    /// Applies Integration Tests Startup Filter-specific settings to the supplied options.
     /// </summary>
-    /// <param name="next">The next.</param>
-    /// <returns>The result of the operation.</returns>
+    /// <param name="next">Callback used by configure.</param>
+    /// <returns>The resulting action.</returns>
     public Action<IApplicationBuilder> Configure(Action<IApplicationBuilder> next)
     {
         return app =>
