@@ -5,34 +5,37 @@
 
 # Soenneker.StartupFilters.IntegrationTests
 
-A StartupFilter injecting middleware crucial to integration testing.
+An ASP.NET Core startup filter that makes in-memory integration-test requests appear to originate from the loopback address.
 
-## Install
+## Installation
 
 ```bash
 dotnet add package Soenneker.StartupFilters.IntegrationTests
 ```
 
-## Quick start
+## Usage with `WebApplicationFactory`
 
 ```csharp
+using Microsoft.AspNetCore.Mvc.Testing;
 using Soenneker.StartupFilters.IntegrationTests.Registrars;
-using Microsoft.Extensions.DependencyInjection;
 
-var services = new ServiceCollection();
-var result = services.AddIntegrationTestsStartupFilterAsSingleton();
+await using var factory = new WebApplicationFactory<Program>()
+    .WithWebHostBuilder(builder =>
+    {
+        builder.ConfigureServices(services =>
+        {
+            services.AddIntegrationTestsStartupFilterAsSingleton();
+        });
+    });
+
+using HttpClient client = factory.CreateClient();
+HttpResponseMessage response = await client.GetAsync("/health");
 ```
 
-Adds `IntegrationTestsStartupFilter` as a singleton service.
+The filter inserts `LocalIpAddressMiddleware` before the application's configured pipeline. For every request, that middleware sets both `HttpContext.Connection.LocalIpAddress` and `RemoteIpAddress` to `IPAddress.Loopback`. This is useful when code under test requires connection-address data that an in-memory test server does not provide.
 
-## What you get
+## Test-only safety
 
-- `IIntegrationTestsStartupFilter` — A StartupFilter injecting middleware crucial to integration testing.
-- `IntegrationTestRegistrar` — A StartupFilter injecting middleware crucial to integration testing.
+Do not register this package in production. Replacing `RemoteIpAddress` can bypass application behavior that trusts loopback traffic, including IP allowlists or local-only endpoints. Keep the registration inside the integration-test host configuration rather than shared application startup.
 
-## API at a glance
-
-| API | What it does | Result / important behavior |
-| --- | --- | --- |
-| `IntegrationTestRegistrar.AddIntegrationTestsStartupFilterAsSingleton(services)` | Adds `IntegrationTestsStartupFilter` as a singleton service. | The same service collection, so additional registrations can be chained. |
-| `IntegrationTestRegistrar.AddIntegrationTestsStartupFilterAsScoped(services)` | Adds `IntegrationTestsStartupFilter` as a scoped service. | The same service collection, so additional registrations can be chained. |
+The singleton registration is the normal choice because startup filters are consumed while the host builds its middleware pipeline. The scoped registrar is available for specialized hosts, but it is not needed for a standard `WebApplicationFactory` setup.

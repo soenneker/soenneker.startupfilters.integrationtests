@@ -3,7 +3,7 @@
 namespace Soenneker.StartupFilters.IntegrationTests.Abstract;
 
 /// <summary>
-/// A StartupFilter injecting middleware crucial to integration testing
+/// Adds middleware that makes integration-test requests appear to originate from the loopback address.
 /// </summary>
 public interface IIntegrationTestsStartupFilter : IStartupFilter
 {
