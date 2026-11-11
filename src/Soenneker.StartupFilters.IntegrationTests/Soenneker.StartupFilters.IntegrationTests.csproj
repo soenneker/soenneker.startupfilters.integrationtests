@@ -47,6 +47,6 @@
 
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
-        <PackageReference Include="Soenneker.Middlewares.LocalIpAddress" Version="11.0.84" />
+        <PackageReference Include="Soenneker.Middlewares.LocalIpAddress" Version="11.0.85" />
     </ItemGroup>
 </Project>
